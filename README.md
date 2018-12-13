@@ -30,12 +30,9 @@ See [docker/README.md](https://github.com/leggedrobotics/SimBenchmark/blob/maste
 
 ### via bash script 
 
-- Run install.sh script by ```./install.sh ```
-- The dependencies are downloaded in ```lib``` directory.
-- To use visualization, add environmental variable "RAI_GRAPHICS_OPENGL_ROOT" that points to lib/raiGraphics
-- download MuJoCo v.1.5 in lib directory
-    - ```lib/mjpro150```
-    - put ```mjkey.txt``` in ```lib/mjpro150/mjkey.txt```
+- Put mjkey.txt in ```res/mujoco``` for MuJoCo
+- Create CMakeLists.txt in ```res/raiSim``` for raiSim (read ```res/raiSim/README.md``` for details)
+- Run install.sh script by ```./run_build.sh ```
 
 ## Test and Results
 
