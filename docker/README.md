@@ -5,14 +5,14 @@ You can either build a docker image from Dockerfile or pull the image from docke
 1. Get docker image
 	- option 1: Pull from repository (recommended)
 		```sh 
-		$ docker pull donghokang/simbenchmark 
+		$ docker pull donghokang/simbenchmark:<16.04 or 18.04> 
 		```
 	- option 2: Build from Dockerfile
 		- 1. build docker file
 		```sh 
-		$ docker build -f ./Dockerfile -t donghokang/simbenchmark:latest .
+		$ cd <16.04 or 18.04>
+		$ docker build -f ./Dockerfile -t donghokang/simbenchmark:<16.04 or 18.04> .
 		```
-		- 2. install dart 6.4.0 from source file 
 2. Run docker container from the image   
 	```sh
 	$ docker run -it --rm -v <SimBenchmark root dir>:/home/simbench donghokang/simbenchmark:latest

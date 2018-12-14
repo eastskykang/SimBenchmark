@@ -132,8 +132,8 @@ if(RAISIM)
         set(raicommon_for_raisim_install_dir ${INSTALL_DIR})
 
         externalproject_add(ex_raigraphics_for_raisim
-                GIT_REPOSITORY      "https://bitbucket.org/jhwangbo/raigraphics_opengl.git"
-                GIT_TAG             "feature/staticlib"
+                GIT_REPOSITORY      "https://${RAIGRAPHICS_REPOSITORY}"
+                GIT_TAG             "master"
                 CMAKE_ARGS
                 "-DBUILD_SHARED_LIBS=OFF"
                 "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"

@@ -9,7 +9,7 @@ services:
   - docker
 
 install:
-  - docker pull donghokang/simbenchmark:latest
+  - docker pull donghokang/simbenchmark:16.04
   - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name simbenchmark-docker donghokang/simbenchmark:latest
 
 script:
