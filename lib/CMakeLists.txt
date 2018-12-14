@@ -108,6 +108,9 @@ if(RAISIM)
         message(STATUS "Found raiSim Git Repo authentication.")
         include(${raiSim_authentication})
 
+        # This file is for bitbucket authentication
+        configure_file("${CMAKE_SOURCE_DIR}/res/raiSim/.netrc.in" "~/.netrc" @ONLY)
+
         externalproject_add(ex_gtest
                 GIT_REPOSITORY      "https://github.com/abseil/googletest.git"
                 GIT_TAG             "release-1.8.1"
@@ -120,7 +123,7 @@ if(RAISIM)
         set(gtest_install_dir "${INSTALL_DIR}")
 
         externalproject_add(ex_raicommon_for_raisim
-                GIT_REPOSITORY      "https://donghokang@bitbucket.org/jhwangbo/raicommon.git"
+                GIT_REPOSITORY      "https://bitbucket.org/jhwangbo/raicommon.git"
                 GIT_TAG             "master"
                 CMAKE_ARGS
                 "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
@@ -144,7 +147,7 @@ if(RAISIM)
                 )
 
         externalproject_add(ex_raisim
-                GIT_REPOSITORY      "https://${BITBUCKET_USERNAME}@${RAISIM_REPOSITORY}"
+                GIT_REPOSITORY      "https://${RAISIM_REPOSITORY}"
                 GIT_TAG             "simbenchmark"
                 CMAKE_ARGS
                 "-DCOLLISION_BACKEND=ODE"
