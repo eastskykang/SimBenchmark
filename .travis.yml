@@ -5,6 +5,8 @@ sudo: required
 os:
   - linux
 
+dist: xenial
+
 env:
   global:
       - DOCKER_IMAGE_TAG=donghokang/simbenchmark:16.04
