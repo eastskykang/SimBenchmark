@@ -133,10 +133,13 @@ if(RAISIM)
 
         externalproject_add(ex_raigraphics_for_raisim
                 GIT_REPOSITORY      "https://${RAIGRAPHICS_REPOSITORY}"
-                GIT_TAG             "master"
+                GIT_TAG             "debug/target_include_directory"
                 CMAKE_ARGS
                 "-DBUILD_SHARED_LIBS=OFF"
                 "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
+                "-DCMAKE_FIND_ROOT_PATH=${raicommon_for_raisim_install_dir}"
+                DEPENDS
+                "ex_raicommon_for_raisim"
                 )
         externalproject_get_property(ex_raigraphics_for_raisim INSTALL_DIR)
         set(raigraphics_for_raisim_install_dir ${INSTALL_DIR})
