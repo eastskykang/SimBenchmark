@@ -5,12 +5,16 @@ sudo: required
 os:
   - linux
 
+env:
+  global:
+      - DOCKER_IMAGE_TAG=donghokang/simbenchmark:16.04
+
 services:
   - docker
 
 install:
-  - docker pull donghokang/simbenchmark:16.04
-  - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name simbenchmark-docker donghokang/simbenchmark:latest
+  - docker pull ${DOCKER_IMAGE_TAG}
+  - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name simbenchmark-docker ${DOCKER_IMAGE_TAG}
 
 script:
   - docker exec simbenchmark-docker /bin/bash -c "cd $TRAVIS_BUILD_DIR && ./.ci/build.sh"
