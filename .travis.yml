@@ -1,0 +1,23 @@
+language: c++
+
+sudo: required
+
+os:
+  - linux
+
+services:
+  - docker
+
+install:
+  - docker pull donghokang/simbenchmark:latest
+  - docker run -itd -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR --name simbenchmark-docker donghokang/simbenchmark:latest
+
+script:
+  - docker exec simbenchmark-docker /bin/bash -c "cd $TRAVIS_BUILD_DIR && ./.ci/build.sh"
+
+branches:
+  except:
+  - docs
+
+notifications:
+  slack: rai-dev:ShAnMsZnkPDcPxybvasdrUYj
