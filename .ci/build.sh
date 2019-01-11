@@ -15,7 +15,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
 
 # build
 echo "Building dependencies (it takes minutes)..."
-make ex_all
+make ex_all -j4
 
 echo "==========================================================================="
 echo "Install SimBenchmark..."
