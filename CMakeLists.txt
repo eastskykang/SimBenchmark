@@ -40,14 +40,14 @@ endif()
 
 ########################################################################################################################
 # options
-option(RAISIM "benchmark raiSim" ON)
+option(RAISIM "benchmark raiSim" OFF)
 option(BULLET "benchmark Bullet Multibody(bullet3 API)" ON)
 option(ODE "benchmark ODE" ON)
 option(MUJOCO "benchmark MUJOCO" ON)
 option(DART "benchmark DART" ON)
 
 option(BUILD_DEMO "build demos" ON)
-option(BUILD_TEST "build tests" ON)
+option(BUILD_TEST "build tests" OFF)
 option(BUILD_BENCHMARK "build benchmark tests" ON)
 
 # backend of raiSim: "ODE" or "BULLET"
@@ -94,6 +94,23 @@ link_directories(${Boost_LIBRARY_DIRS})
 # external projects
 # this libraries will be installed in the build directory
 add_subdirectory(lib)
+
+# raicommon
+externalproject_get_property(ex_raicommon INSTALL_DIR)
+set(raicommon_include_dir "${INSTALL_DIR}/include")
+set(raicommon_lib_dir "${INSTALL_DIR}")
+
+find_package(raicommon
+        CONFIG
+        QUIET
+        PATHS           "${raicommon_lib_dir}"
+        NO_DEFAULT_PATH)
+
+if(NOT raicommon_FOUND)
+    message(WARNING "Cannot find raicommon. Build ex_all first.")
+    return()
+endif()
+
 
 ########################################################################################################################
 # macro variable

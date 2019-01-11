@@ -3,42 +3,6 @@ message(STATUS "  raiSim for raiSim")
 ########################################################################################################################
 # dependencies
 
-# raicommon
-externalproject_get_property(ex_raicommon_for_raisim INSTALL_DIR)
-set(raicommon_include_dir "${INSTALL_DIR}/include")
-set(raicommon_lib_dir "${INSTALL_DIR}/lib")
-
-find_library(raicommon_graph
-        NAMES           rai_common_graph
-        PATHS           "${raicommon_lib_dir}"
-        NO_DEFAULT_PATH
-        )
-
-find_library(raicommon_logger
-        NAMES           rai_common_logger
-        PATHS           "${raicommon_lib_dir}"
-        NO_DEFAULT_PATH
-        )
-
-find_library(raicommon_timer
-        NAMES           rai_common_timer
-        PATHS           "${raicommon_lib_dir}"
-        NO_DEFAULT_PATH
-        )
-
-# raigraphics
-externalproject_get_property(ex_raigraphics_for_raisim INSTALL_DIR)
-externalproject_get_property(ex_raigraphics_for_raisim SOURCE_DIR)
-
-set(raigraphics_include_dir "${SOURCE_DIR}/include")
-set(raigraphics_lib_dir "${INSTALL_DIR}/lib")
-
-find_library(raiGraphicsOpengl
-        NAMES           raiGraphicsOpenglLib
-        PATHS           "${raigraphics_lib_dir}"
-        NO_DEFAULT_PATH
-        )
-
 # raiSim
 externalproject_get_property(ex_raisim INSTALL_DIR)
 set(raisim_install_dir ${INSTALL_DIR})
@@ -80,7 +44,6 @@ add_library(raiSim
 
 add_dependencies(raiSim
         ex_raiSim
-        ex_raigraphics_for_raisim
         )
 
 set_target_properties(raiSim
@@ -104,10 +67,6 @@ target_include_directories(raiSim
 
 target_link_libraries(raiSim
         INTERFACE
-        ${raicommon_graph}
-        ${raicommon_logger}
-        ${raicommon_timer}
-        ${raiGraphicsOpengl}
         ${Boost_LIBRARIES}
         GL GLEW SDL2 SDL2_ttf assimp SOIL pthread
         )
@@ -121,7 +80,6 @@ add_library(raiSimODE
 
 add_dependencies(raiSimODE
         ex_raiSim
-        ex_raigraphics_for_raisim
         )
 
 set_target_properties(raiSimODE

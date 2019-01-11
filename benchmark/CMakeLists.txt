@@ -123,7 +123,7 @@ else()
     message(STATUS "  Cannot find dartSim. Stop build dartSim benchmark tests")
 endif()
 
-if(TARGET dartSim)
+if(TARGET raiSim)
     add_subdirectory(raiSim)
 else()
     message(STATUS "  Cannot find raiSim. Stop build raiSim benchmark tests")

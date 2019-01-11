@@ -39,6 +39,8 @@ externalproject_add(ex_raicommon
         CMAKE_ARGS
         "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
         )
+externalproject_get_property(ex_raicommon INSTALL_DIR)
+set(raicommon_install_dir ${INSTALL_DIR})
 
 
 # raigraphics
@@ -48,7 +50,10 @@ externalproject_add(ex_raigraphics
         CMAKE_ARGS
         "-DINSTALL_LIBS=ON"
         "-DBUILD_DEMOS=OFF"
+        "-DCMAKE_FIND_ROOT_PATH=${raicommon_install_dir}"
         "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
+        DEPENDS
+        "ex_raicommon"
         )
 externalproject_get_property(ex_raigraphics INSTALL_DIR)
 set(raigraphics_install_dir ${INSTALL_DIR})
@@ -97,13 +102,13 @@ externalproject_add(ex_mujoco
         INSTALL_COMMAND     ""
         )
 
-# raisim (if user has proper authentication)
-find_file(raiSim_authentication
-        CMakeLists.txt
-        PATH                "${CMAKE_SOURCE_DIR}/res/raiSim"
-        )
-
 if(RAISIM)
+    # raisim (if user has proper authentication)
+    find_file(raiSim_authentication
+            CMakeLists.txt
+            PATH                "${CMAKE_SOURCE_DIR}/res/raiSim"
+            )
+
     if(EXISTS ${raiSim_authentication})
         message(STATUS "Found raiSim Git Repo authentication.")
         include(${raiSim_authentication})
@@ -121,28 +126,6 @@ if(RAISIM)
                 )
         externalproject_get_property(ex_gtest INSTALL_DIR)
         set(gtest_install_dir "${INSTALL_DIR}")
-
-        externalproject_add(ex_raicommon_for_raisim
-                GIT_REPOSITORY      "https://bitbucket.org/jhwangbo/raicommon.git"
-                GIT_TAG             "master"
-                CMAKE_ARGS
-                "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
-                )
-        externalproject_get_property(ex_raicommon_for_raisim INSTALL_DIR)
-        set(raicommon_for_raisim_install_dir ${INSTALL_DIR})
-
-        externalproject_add(ex_raigraphics_for_raisim
-                GIT_REPOSITORY      "https://${RAIGRAPHICS_REPOSITORY}"
-                GIT_TAG             "debug/target_include_directory"
-                CMAKE_ARGS
-                "-DBUILD_SHARED_LIBS=OFF"
-                "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
-                "-DCMAKE_FIND_ROOT_PATH=${raicommon_for_raisim_install_dir}"
-                DEPENDS
-                "ex_raicommon_for_raisim"
-                )
-        externalproject_get_property(ex_raigraphics_for_raisim INSTALL_DIR)
-        set(raigraphics_for_raisim_install_dir ${INSTALL_DIR})
 
         LIST(APPEND raisim_find_path
                 "${gtest_install_dir}"
@@ -174,6 +157,8 @@ endif()
 # add ex_all as build target
 message(STATUS "The project depends on the following external libraries")
 message(STATUS "Build ex_all and cmake again if this is first build:")
+message(STATUS "  ex_common")
+message(STATUS "  ex_yamlcpp")
 message(STATUS "  ex_raigraphics")
 
 # common libs
