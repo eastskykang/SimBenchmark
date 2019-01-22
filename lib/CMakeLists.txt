@@ -39,6 +39,8 @@ externalproject_add(ex_raicommon
         CMAKE_ARGS
         "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
         )
+externalproject_get_property(ex_raicommon INSTALL_DIR)
+set(raicommon_install_dir "${INSTALL_DIR}")
 
 
 # raigraphics
@@ -49,6 +51,9 @@ externalproject_add(ex_raigraphics
         "-DINSTALL_LIBS=ON"
         "-DBUILD_DEMOS=OFF"
         "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
+        "-DCMAKE_FIND_ROOT_PATH=${raicommon_install_dir}"
+        DEPENDS
+        "ex_raicommon"
         )
 externalproject_get_property(ex_raigraphics INSTALL_DIR)
 set(raigraphics_install_dir ${INSTALL_DIR})
@@ -122,28 +127,8 @@ if(RAISIM)
         externalproject_get_property(ex_gtest INSTALL_DIR)
         set(gtest_install_dir "${INSTALL_DIR}")
 
-        externalproject_add(ex_raicommon_for_raisim
-                GIT_REPOSITORY      "https://bitbucket.org/jhwangbo/raicommon.git"
-                GIT_TAG             "master"
-                CMAKE_ARGS
-                "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
-                )
-        externalproject_get_property(ex_raicommon_for_raisim INSTALL_DIR)
-        set(raicommon_for_raisim_install_dir ${INSTALL_DIR})
-
-        externalproject_add(ex_raigraphics_for_raisim
-                GIT_REPOSITORY      "https://bitbucket.org/jhwangbo/raigraphics_opengl.git"
-                GIT_TAG             "feature/staticlib"
-                CMAKE_ARGS
-                "-DBUILD_SHARED_LIBS=OFF"
-                "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
-                )
-        externalproject_get_property(ex_raigraphics_for_raisim INSTALL_DIR)
-        set(raigraphics_for_raisim_install_dir ${INSTALL_DIR})
-
         LIST(APPEND raisim_find_path
                 "${gtest_install_dir}"
-                "${raigraphics_for_raisim_install_dir}"
                 )
 
         externalproject_add(ex_raisim
@@ -156,8 +141,6 @@ if(RAISIM)
                 "-DCMAKE_FIND_ROOT_PATH=${raisim_find_path}"
                 "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
                 DEPENDS
-                "ex_raicommon_for_raisim"
-                "ex_raigraphics_for_raisim"
                 "ex_gtest"
                 )
     else()

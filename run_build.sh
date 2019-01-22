@@ -14,6 +14,7 @@ echo "Install apt packages..."
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
 
+# raicommon / raigraphics / raisim dependencies
 sudo apt install -y -qq g++-7
 sudo apt install -y -qq \
 libeigen3-dev \
@@ -29,6 +30,14 @@ libgtest-dev \
 google-perftools \
 libgoogle-perftools-dev \
 libpng-dev
+
+# dart dependencies
+sudo apt-get remove -y libdart*
+sudo apt-get install -y -qq \
+libassimp-dev \
+libccd-dev \
+libfcl-dev \
+libopenscenegraph-dev
 
 # create build directory
 echo "Creating build directory..."

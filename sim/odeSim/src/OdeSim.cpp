@@ -261,11 +261,11 @@ void OdeSim::updateFrame() {
 }
 
 benchmark::SingleBodyHandle OdeSim::addBox(double xLength,
-                                                double yLength,
-                                                double zLength,
-                                                double mass,
-                                                benchmark::CollisionGroupType collisionGroup,
-                                                benchmark::CollisionGroupType collisionMask) {
+                                           double yLength,
+                                           double zLength,
+                                           double mass,
+                                           benchmark::CollisionGroupType collisionGroup,
+                                           benchmark::CollisionGroupType collisionMask) {
 
   benchmark::SingleBodyHandle handle(world_.addBox(xLength, yLength, zLength, mass, collisionGroup, collisionMask), {}, {});
   if(gui_) handle.visual().push_back(new rai_graphics::object::Box(xLength, yLength, zLength, true));
@@ -274,9 +274,9 @@ benchmark::SingleBodyHandle OdeSim::addBox(double xLength,
 }
 
 benchmark::SingleBodyHandle OdeSim::addSphere(double radius,
-                                                   double mass,
-                                                   benchmark::CollisionGroupType collisionGroup,
-                                                   benchmark::CollisionGroupType collisionMask) {
+                                              double mass,
+                                              benchmark::CollisionGroupType collisionGroup,
+                                              benchmark::CollisionGroupType collisionMask) {
   benchmark::SingleBodyHandle handle(world_.addSphere(radius, mass, collisionGroup, collisionMask), {}, {});
   if(gui_) handle.visual().push_back(new rai_graphics::object::Sphere(radius, true));
   processSingleBody(handle);
@@ -284,10 +284,10 @@ benchmark::SingleBodyHandle OdeSim::addSphere(double radius,
 }
 
 benchmark::SingleBodyHandle OdeSim::addCapsule(double radius,
-                                                    double height,
-                                                    double mass,
-                                                    benchmark::CollisionGroupType collisionGroup,
-                                                    benchmark::CollisionGroupType collisionMask) {
+                                               double height,
+                                               double mass,
+                                               benchmark::CollisionGroupType collisionGroup,
+                                               benchmark::CollisionGroupType collisionMask) {
   benchmark::SingleBodyHandle handle(world_.addCapsule(radius, height, mass, collisionGroup, collisionMask), {}, {});
   if(gui_) handle.visual().push_back(new rai_graphics::object::Capsule(radius, height, true));
   processSingleBody(handle);
@@ -295,10 +295,10 @@ benchmark::SingleBodyHandle OdeSim::addCapsule(double radius,
 }
 
 benchmark::SingleBodyHandle OdeSim::addCylinder(double radius,
-                                                     double height,
-                                                     double mass,
-                                                     benchmark::CollisionGroupType collisionGroup,
-                                                     benchmark::CollisionGroupType collisionMask) {
+                                                double height,
+                                                double mass,
+                                                benchmark::CollisionGroupType collisionGroup,
+                                                benchmark::CollisionGroupType collisionMask) {
   benchmark::SingleBodyHandle handle(world_.addCylinder(radius, height, mass, collisionGroup, collisionMask), {}, {});
   if(gui_) handle.visual().push_back(new rai_graphics::object::Cylinder(radius, height, true));
   processSingleBody(handle);
@@ -306,13 +306,13 @@ benchmark::SingleBodyHandle OdeSim::addCylinder(double radius,
 }
 
 benchmark::SingleBodyHandle OdeSim::addCheckerboard(double gridSize,
-                                                         double xLength,
-                                                         double yLength,
-                                                         double reflectanceI,
-                                                         bo::CheckerboardShape shape,
-                                                         benchmark::CollisionGroupType collisionGroup,
-                                                         benchmark::CollisionGroupType collisionMask,
-                                                         int flags) {
+                                                    double xLength,
+                                                    double yLength,
+                                                    double reflectanceI,
+                                                    bo::CheckerboardShape shape,
+                                                    benchmark::CollisionGroupType collisionGroup,
+                                                    benchmark::CollisionGroupType collisionMask,
+                                                    int flags) {
   benchmark::SingleBodyHandle handle(world_.addCheckerboard(gridSize,
                                                             xLength,
                                                             yLength,
@@ -331,8 +331,8 @@ benchmark::SingleBodyHandle OdeSim::addCheckerboard(double gridSize,
 }
 
 ArticulatedSystemHandle OdeSim::addArticulatedSystem(std::string nm,
-                                                          benchmark::CollisionGroupType collisionGroup,
-                                                          benchmark::CollisionGroupType collisionMask) {
+                                                     benchmark::CollisionGroupType collisionGroup,
+                                                     benchmark::CollisionGroupType collisionMask) {
   ArticulatedSystemHandle handle(
       world_.addArticulatedSystem(nm, collisionGroup, collisionMask), {}, {});
   if(!gui_) {
@@ -388,7 +388,7 @@ ArticulatedSystemHandle OdeSim::addArticulatedSystem(std::string nm,
                                                                             true));
         break;
       case benchmark::object::Shape::Mesh:
-      RAIFATAL("mesh collision body is not supported yet");
+        RAIFATAL("mesh collision body is not supported yet");
         break;
       default: RAIFATAL("unsupported type: ");
         break;
@@ -441,7 +441,7 @@ int OdeSim::getWorldNumContacts() {
 }
 
 void OdeSim::integrate1(double dt) {
-RAIFATAL("not supported for ode")
+  RAIFATAL("not supported for ode")
 }
 
 void OdeSim::integrate2(double dt) {
