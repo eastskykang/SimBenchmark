@@ -40,7 +40,7 @@ externalproject_add(ex_raicommon
         "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
         )
 externalproject_get_property(ex_raicommon INSTALL_DIR)
-set(raicommon_install_dir ${INSTALL_DIR})
+set(raicommon_install_dir "${INSTALL_DIR}")
 
 
 # raigraphics
@@ -129,7 +129,6 @@ if(RAISIM)
 
         LIST(APPEND raisim_find_path
                 "${gtest_install_dir}"
-                "${raigraphics_for_raisim_install_dir}"
                 )
 
         externalproject_add(ex_raisim
@@ -142,8 +141,6 @@ if(RAISIM)
                 "-DCMAKE_FIND_ROOT_PATH=${raisim_find_path}"
                 "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
                 DEPENDS
-                "ex_raicommon_for_raisim"
-                "ex_raigraphics_for_raisim"
                 "ex_gtest"
                 )
     else()
