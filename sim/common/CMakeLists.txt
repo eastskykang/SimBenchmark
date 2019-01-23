@@ -2,6 +2,14 @@ message(STATUS "  commonSim for common parts")
 
 ########################################################################################################################
 # dependencies
+externalproject_get_property(ex_raicommon INSTALL_DIR)
+find_package(raicommon
+        CONFIG
+        QUIET
+        PATHS           "${INSTALL_DIR}"
+        NO_DEFAULT_PATH
+        )
+
 externalproject_get_property(ex_raigraphics INSTALL_DIR)
 find_package(raigraphics
         CONFIG
@@ -32,9 +40,13 @@ set(CommonSrc
 
 ########################################################################################################################
 # library
-add_library(commonSim ${CommonSrc})
+add_library(commonSim
+        STATIC
+        ${CommonSrc}
+        )
 
 add_dependencies(commonSim
+        ex_raicommon
         ex_raigraphics
         )
 
@@ -43,6 +55,14 @@ target_include_directories(commonSim
         ${raigraphics_INCLUDE_DIRS}
         )
 
+target_link_directories(commonSim
+        PUBLIC
+        ${raicommon_LIBRARIES_DIR}
+        ${raigraphics_LIBRARIES_DIR}
+        )
+
 target_link_libraries(commonSim
         ${raigraphics_LINK}
+        ${raigraphics_EXPORTED_TARGETS}
         )
+
